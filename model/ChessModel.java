@@ -13,8 +13,6 @@ public final class ChessModel {
 	private Status status;
 	private Piece waitingMove;
 	private ArrayList<Piece> captured;
-	// private ArrayList<Piece> blackPieces;
-	// private ArrayList<Piece> whitePieces;
 	private Piece blackKing;
 	private Piece whiteKing;
 	
@@ -25,8 +23,6 @@ public final class ChessModel {
 	public ChessModel(ChessModel chessModel) {
 		pieces = new Piece[8][8];
 		captured = new ArrayList<Piece>();
-		// blackPieces = new ArrayList<Piece>();
-		// whitePieces = new ArrayList<Piece>();
 		for (int i = 0; i < 8; i++) {
 			int j = 0;
 			for (Piece piece : chessModel.pieces[i]) {
@@ -44,11 +40,6 @@ public final class ChessModel {
 				case QUEEN:	pieces[i][j] = new Queen(piece); break;
 				case ROOK: pieces[i][j] = new Rook(piece);
 				}
-				
-				// if (piece.getPieceColor() == PieceColor.WHITE)
-				//     whitePieces.add(pieces[i][j]);
-				// else if (piece.getPieceColor() == PieceColor.BLACK)
-				//     blackPieces.add(pieces[i][j]);
 				
 				pieces[i][j].setChessBoardLocation(new Point(i, j));
 				j++;
@@ -126,8 +117,6 @@ public final class ChessModel {
 	public void resetModel() {
 		status = Status.TURN_WHITE;
 		captured = new ArrayList<Piece>();
-		// blackPieces = new ArrayList<Piece>();
-		// whitePieces = new ArrayList<Piece>();
 		pieces = new Piece[][] {{ 
 			new Rook(PieceColor.BLACK), new Knight(PieceColor.BLACK), new Bishop(PieceColor.BLACK),	new Queen(PieceColor.BLACK), new King(PieceColor.BLACK), new Bishop(PieceColor.BLACK),	new Knight(PieceColor.BLACK), new Rook(PieceColor.BLACK) },{ 
 			new Pawn(PieceColor.BLACK), new Pawn(PieceColor.BLACK), new Pawn(PieceColor.BLACK), new Pawn(PieceColor.BLACK), new Pawn(PieceColor.BLACK), new Pawn(PieceColor.BLACK), new Pawn(PieceColor.BLACK), new Pawn(PieceColor.BLACK) },{ 
@@ -138,10 +127,6 @@ public final class ChessModel {
 			new Pawn(PieceColor.WHITE), new Pawn(PieceColor.WHITE), new Pawn(PieceColor.WHITE), new Pawn(PieceColor.WHITE), new Pawn(PieceColor.WHITE), new Pawn(PieceColor.WHITE), new Pawn(PieceColor.WHITE), new Pawn(PieceColor.WHITE) },{ 
 			new Rook(PieceColor.WHITE), new Knight(PieceColor.WHITE), new Bishop(PieceColor.WHITE), new Queen(PieceColor.WHITE), new King(PieceColor.WHITE), new Bishop(PieceColor.WHITE), new Knight(PieceColor.WHITE), new Rook(PieceColor.WHITE) 
 		}};
-		// blackPieces.addAll(Arrays.asList(pieces[0]));
-		// blackPieces.addAll(Arrays.asList(pieces[1]));
-		// whitePieces.addAll(Arrays.asList(pieces[7]));
-		// whitePieces.addAll(Arrays.asList(pieces[6]));
 		blackKing = pieces[0][4];
 		whiteKing = pieces[7][4];
 		updatePiecesLocations();
@@ -149,18 +134,10 @@ public final class ChessModel {
 	
 	public void addCapturedPiece(Piece piece) {
 		captured.add(piece);
-		// if (piece.getPieceColor() == PieceColor.WHITE)
-		//     whitePieces.remove(piece);
-		// else if (piece.getPieceColor() == PieceColor.BLACK)
-		//     blackPieces.remove(piece);
 	}
 
 	public void removeCapturedPiece(Piece piece) {
 		captured.remove(piece);
-		// if (piece.getPieceColor() == PieceColor.WHITE)
-		//     whitePieces.add(piece);
-		// else if (piece.getPieceColor() == PieceColor.BLACK)
-		//     blackPieces.add(piece);
 		
 	}
 	
