@@ -323,9 +323,4 @@ public final class ChessController implements Controller {
 		}
 		return 0;
 	}
-
-	public void giveHint() {
-		// TODO
-	}
-
 }
