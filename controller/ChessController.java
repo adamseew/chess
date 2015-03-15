@@ -29,7 +29,11 @@ public final class ChessController implements Controller {
 		{ 
 			// Need to reset domains to permit other moves
 			chessModel.resetDomain();
-			chessModel.setStatus(status.toString().contains("WHITE") ? Status.TURN_WHITE : Status.TURN_BLACK);
+			chessModel.setStatus(
+                                status.toString().contains("WHITE") ? 
+                                Status.TURN_WHITE : 
+                                Status.TURN_BLACK
+                        );
 			
 			caller.designChessBoard(true);
 		}
@@ -62,7 +66,11 @@ public final class ChessController implements Controller {
 			
 			// Need to reset domains to permit other moves
 			chessModel.resetDomain();
-			chessModel.setStatus(status == Status.WAITING_MOVE_WHITE ? Status.TURN_BLACK : Status.TURN_WHITE);
+			chessModel.setStatus(
+                                status == Status.WAITING_MOVE_WHITE ? 
+                                Status.TURN_BLACK : 
+                                Status.TURN_WHITE
+                        );
 			
 			// Let's check if there is a checkmate condition
 			if (checkmate(
@@ -71,7 +79,8 @@ public final class ChessController implements Controller {
                                 PieceColor.WHITE, 
                                 new ChessModel(chessModel)
                         )) {
-				chessModel.setStatus(status == Status.WAITING_MOVE_WHITE ? 
+				chessModel.setStatus(
+                                        status == Status.WAITING_MOVE_WHITE ? 
                                         Status.WON_WHITE : 
                                         Status.WON_BLACK
                                 );
@@ -83,7 +92,8 @@ public final class ChessController implements Controller {
                                 PieceColor.BLACK : 
                                 PieceColor.WHITE,
                                 new ChessModel(chessModel)))
-				// Signal user check condition if it happens (it was checked by calling isKingUnderCheck
+				// Signal user check condition if it happens (it was checked by calling 
+                                // isKingUnderCheck
 				caller.signalCheck();
 			
 			caller.designChessBoard(true);
@@ -101,9 +111,9 @@ public final class ChessController implements Controller {
 			case KING: queen(clicked, 1);
 			}
 			
-			// We need to check if by swapping the piece, our king will become capturable. If so, we must 
-			// deny specific swap operation by setting the piece's domain as false even if in normal cases 
-			// it should be true			
+			// We need to check if by swapping the piece, our king will become capturable. 
+			// If so, we must deny specific swap operation by setting the piece's domain
+			// as false even if in normal cases it should be true			
 			for (Piece domainPiece: chessModel.getDomainPieces(pieceColor))
 				if (!clicked.equals(domainPiece.getChessBoardLocation())) {
 					ChessModel modelCopy = new ChessModel(chessModel);
@@ -119,7 +129,8 @@ public final class ChessController implements Controller {
 					}
 				}
 			
-			chessModel.setStatus(status == Status.TURN_WHITE ? 
+			chessModel.setStatus(
+                                status == Status.TURN_WHITE ? 
                                 Status.WAITING_MOVE_WHITE : 
                                 Status.WAITING_MOVE_BLACK
                         );
@@ -132,7 +143,11 @@ public final class ChessController implements Controller {
 		{
 			// Need to reset domains to permit other moves
 			chessModel.resetDomain();
-			chessModel.setStatus(status == Status.WAITING_MOVE_WHITE ? Status.TURN_WHITE : Status.TURN_BLACK);
+			chessModel.setStatus(
+                                status == Status.WAITING_MOVE_WHITE ? 
+                                Status.TURN_WHITE : 
+                                Status.TURN_BLACK
+                        );
 				
 			// Design chess board after changing model
 			caller.designChessBoard(true);
@@ -181,8 +196,16 @@ public final class ChessController implements Controller {
 		Status status = model.getStatus();
 		Piece king = model.getKing(kingColor);
 		boolean isKingUnderCheck = false;
-		for (Piece piece: model.getPieces(kingColor == PieceColor.WHITE ? PieceColor.BLACK : PieceColor.WHITE)) {
-			model.setStatus(kingColor == PieceColor.WHITE ? Status.TURN_BLACK : Status.TURN_WHITE);
+		for (Piece piece: model.getPieces(
+                        kingColor == PieceColor.WHITE ? 
+                        PieceColor.BLACK : 
+                        PieceColor.WHITE
+                )) {
+			model.setStatus(
+                                kingColor == PieceColor.WHITE ? 
+                                Status.TURN_BLACK : 
+                                Status.TURN_WHITE
+                        );
 			
 			switch (piece.getPieceType()) {
 			case PAWN: pawn(piece.getChessBoardLocation(), model); break;
@@ -330,8 +353,8 @@ public final class ChessController implements Controller {
 			clicked.translate(verticalStep, horizontalStep);
 			Piece capturable = model.getPiece(clicked);
 			if (clicked.x > 7 || clicked.x < 0 || clicked.y > 7 || clicked.y < 0)
-				// Out of bounds, reached chess board limit, returning true specifies that all the 
-				// way from start point to end point was empty
+				// Out of bounds, reached chess board limit, returning true specifies that 
+				// all the way from start point to end point was empty
 				return 0;
 			if (capturable.getPieceType() == PieceType.EMPTY && setDomain) {
 				// Free way, let's mark it
