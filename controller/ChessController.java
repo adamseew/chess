@@ -159,9 +159,15 @@ public final class ChessController implements Controller {
 					ChessModel modelCopy = new ChessModel(model);
 					if (domainPiece.isCaptureDomain()) {
 						modelCopy.setPiece(domainPiece.getChessBoardLocation(), new Empty());
-						modelCopy.swapPieces(piece.getChessBoardLocation(), domainPiece.getChessBoardLocation());
+						modelCopy.swapPieces(
+                                                        piece.getChessBoardLocation(), 
+                                                        domainPiece.getChessBoardLocation()
+                                                );
 					} else
-						modelCopy.swapPieces(piece.getChessBoardLocation(), domainPiece.getChessBoardLocation());
+						modelCopy.swapPieces(
+                                                        piece.getChessBoardLocation(), 
+                                                        domainPiece.getChessBoardLocation()
+                                                );
 			
 					if (!isKingUnderCheck(color, modelCopy))
 						return false;
@@ -294,23 +300,31 @@ public final class ChessController implements Controller {
 		
 		int pieceTypeConstant = status == Status.TURN_WHITE ? -1 : 1;
 				
-		if (stepDomainScanner(clicked, model, status, pieceTypeConstant, 0, 1, true, false) == 0 && !piece.wasMoved())
+		if (stepDomainScanner(clicked, model, status, pieceTypeConstant, 0, 1, true, false) == 0 && 
+                        !piece.wasMoved()
+                )
 			stepDomainScanner(new Point(clicked), model, status, pieceTypeConstant, 0, 1, true, false);
 		stepDomainScanner(clicked, model, status, 0, -1, 1, false, true);
 		stepDomainScanner(clicked, model, status, 0, 2, 1, false, true);
 	}
 	
-	private int stepDomainScanner(Point clicked, ChessModel model, Status status, int verticalStep, int horizontalStep) {
+	private int stepDomainScanner(Point clicked, ChessModel model, Status status, int verticalStep, 
+                int horizontalStep
+        ) {
 		return stepDomainScanner(clicked, model, status, verticalStep, horizontalStep, 8, true,  true);
 	}
 	
-	private int stepDomainScanner(Point clicked, ChessModel model, Status status, int verticalStep, int horizontalStep, int steps) {
+	private int stepDomainScanner(Point clicked, ChessModel model, Status status, int verticalStep, 
+                int horizontalStep, int steps
+        ) {
 		return stepDomainScanner(clicked, model, status, verticalStep, horizontalStep, steps, true, true);
 	}
 	
 	// Return value: (i) 0 - anyone in the way; (ii) 1 - someone of the same color in the way; 
 	// (iii) -1 - someone capturable of the opposite color
-	private int stepDomainScanner(Point clicked, ChessModel model, Status status, int verticalStep, int horizontalStep, int steps, boolean setDomain, boolean setCaptureDomain) {
+	private int stepDomainScanner(Point clicked, ChessModel model, Status status, int verticalStep, 
+                int horizontalStep, int steps, boolean setDomain, boolean setCaptureDomain
+        ) {
 		Point point = new Point(clicked);
 		for (int i = 0; i < steps; i++) {
 			clicked.translate(verticalStep, horizontalStep);
@@ -330,8 +344,9 @@ public final class ChessController implements Controller {
 				capturable.setDomain(true);
 				capturable.setCaptureDomain(true);
 
-				// Reached here? So there is some piece of the opposite color, let's take to the player possibility 
-				// to capture it. By returning false the caller will know that there is someone capturable
+				// Reached here? So there is some piece of the opposite color, let's take to 
+                                // the player possibility to capture it. By returning false the caller will 
+                                // know that there is someone capturable
 				return -1;
 			} else
 				// Someone of the same color in the way
