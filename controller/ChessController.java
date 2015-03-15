@@ -119,7 +119,10 @@ public final class ChessController implements Controller {
 					}
 				}
 			
-			chessModel.setStatus(status == Status.TURN_WHITE ? Status.WAITING_MOVE_WHITE : Status.WAITING_MOVE_BLACK);
+			chessModel.setStatus(status == Status.TURN_WHITE ? 
+                                Status.WAITING_MOVE_WHITE : 
+                                Status.WAITING_MOVE_BLACK
+                        );
 			
 			// Design chess board after changing model
 			caller.designChessBoard();
