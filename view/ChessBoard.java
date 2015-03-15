@@ -1,3 +1,4 @@
+// UNIVR-ARFA 
 package view;
 
 import java.awt.Color;
@@ -19,7 +20,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
 
 import model.*;

@@ -1,6 +1,6 @@
+// UNIVR-ARFA 
 package view;
 
-import java.awt.Color;
 import java.awt.Point;
 import javax.swing.Icon;
 import javax.swing.JButton;
