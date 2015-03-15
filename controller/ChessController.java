@@ -48,8 +48,9 @@ public final class ChessController implements Controller {
 				chessModel.swapPieces(chessModel.getWaitingMove().getChessBoardLocation(), clicked);
 			}
 			// Let's promote pawn
-			if (moved.getPieceType() == PieceType.PAWN && clicked.x == 0 && moved.getPieceColor() == PieceColor.WHITE ||
-				moved.getPieceType() == PieceType.PAWN && clicked.x == 7 && moved.getPieceColor() == PieceColor.BLACK) 
+			if (moved.getPieceType() == PieceType.PAWN && clicked.x == 0 && 
+                                moved.getPieceColor() == PieceColor.WHITE || moved.getPieceType() == PieceType.PAWN && 
+                                clicked.x == 7 && moved.getPieceColor() == PieceColor.BLACK) 
 			{
 				switch (caller.pawnPromotionDialog()) {
 				case BISHOP: chessModel.setPiece(clicked, new Bishop(moved.getPieceColor())); break;
@@ -64,12 +65,24 @@ public final class ChessController implements Controller {
 			chessModel.setStatus(status == Status.WAITING_MOVE_WHITE ? Status.TURN_BLACK : Status.TURN_WHITE);
 			
 			// Let's check if there is a checkmate condition
-			if (checkmate(status == Status.WAITING_MOVE_WHITE ? PieceColor.BLACK : PieceColor.WHITE, new ChessModel(chessModel))) {
-				chessModel.setStatus(status == Status.WAITING_MOVE_WHITE ? Status.WON_WHITE : Status.WON_BLACK);
+			if (checkmate(
+                                status == Status.WAITING_MOVE_WHITE ? 
+                                PieceColor.BLACK : 
+                                PieceColor.WHITE, 
+                                new ChessModel(chessModel)
+                        )) {
+				chessModel.setStatus(status == Status.WAITING_MOVE_WHITE ? 
+                                        Status.WON_WHITE : 
+                                        Status.WON_BLACK
+                                );
 				caller.signalCheckmate();
 			}
 			// Let's check if the opposite king is under check after move
-			else if (isKingUnderCheck(status == Status.WAITING_MOVE_WHITE ? PieceColor.BLACK : PieceColor.WHITE, new ChessModel(chessModel)))
+			else if (isKingUnderCheck(
+                                status == Status.WAITING_MOVE_WHITE ? 
+                                PieceColor.BLACK : 
+                                PieceColor.WHITE,
+                                new ChessModel(chessModel)))
 				// Signal user check condition if it happens (it was checked by calling isKingUnderCheck
 				caller.signalCheck();
 			
