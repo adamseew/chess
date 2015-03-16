@@ -1,4 +1,3 @@
-// UNIVR-ARFA 
 package model;
 
 import java.awt.Point;
@@ -7,6 +6,10 @@ import java.util.List;
 
 import view.*;
 
+/**
+ * ChessModel (Class)
+ * @author Univr ARFA
+ */
 public final class ChessModel {
 	private Piece[][] pieces;
 	private Status status;
@@ -15,11 +18,18 @@ public final class ChessModel {
 	private Piece blackKing;
 	private Piece whiteKing;
 	
-	public ChessModel() { 
+	/**
+     * Default constructor
+     */
+    public ChessModel() { 
 		resetModel();
 	}
 	
-	public ChessModel(ChessModel chessModel) {
+	/**
+     * Constructor that make same, not referenced, copy
+     * @param chessModel original ChessModel istance
+     */
+    public ChessModel(ChessModel chessModel) {
 		pieces = new Piece[8][8];
 		captured = new ArrayList<Piece>();
 		for (int i = 0; i < 8; i++) {
@@ -47,11 +57,21 @@ public final class ChessModel {
 		this.status = chessModel.status;
 	}
 	
-	public Piece[][] getPieces() {
+	/**
+     * Will return all ChessModel pieces set
+     * @return all ChessModel pieces set
+     */
+    public Piece[][] getPieces() {
 		return pieces;
 	}
 	
-	public List<Piece> getPieces(PieceColor color) {
+
+	/**
+     * Will return ChessModel pieces as List in a specific color set
+     * @param color pecific color set to be returned
+     * @return ChessModel pieces as List in a specific color set
+     */
+    public List<Piece> getPieces(PieceColor color) {
 		ArrayList<Piece> colorPieces = new ArrayList<Piece>();
 		for (Piece[] pieces : this.pieces)
 			for (Piece piece : pieces)
@@ -60,6 +80,11 @@ public final class ChessModel {
 		return colorPieces;
 	}
 	
+    /**
+     * Will return ChessModel domain pieces as List in a specific color set
+     * @param color pecific color set to be returned
+     * @return ChessModel domain pieces as List in a specific color set
+     */
 	public List<Piece> getDomainPieces(PieceColor color) {
 		ArrayList<Piece> domainPieces = new ArrayList<Piece>();
 		for (Piece[] pieces : this.pieces)
@@ -69,7 +94,13 @@ public final class ChessModel {
 		return domainPieces;
 	}
 	
-	public Piece getKing(PieceColor color) {
+    
+	/**
+     * Will return king pointer of the specified color
+     * @param color king color to be returned as pointer
+     * @return king pointer of the specified color
+     */
+    public Piece getKing(PieceColor color) {
 		if (color == PieceColor.WHITE)
 			return whiteKing;
 		else if (color == PieceColor.BLACK)
@@ -77,18 +108,33 @@ public final class ChessModel {
 		return new Empty();
 	}
 	
-	public Piece getPiece(Point point) {
+	/**
+     * Will return the piece from specific point
+     * @param point Point pointer to ChessModel coordinates
+     * @return the piece from specific point
+     */
+    public Piece getPiece(Point point) {
 		if(point.x < 8 && point.x >= 0 && point.y < 8 && point.y >= 0)
 			return pieces[point.x][point.y];
 		else
 			return new Empty();
 	}
 	
+    /**
+     * Will set the piece from specific point
+     * @param point Point pointer to ChessModel coordinates
+     * @param newPiece new Piece pointer (BEWARE is passed as reference and will be probably changed)
+     */
 	public void setPiece(Point point, Piece newPiece) {
 		pieces[point.x][point.y] = newPiece;
 		updatePiecesLocations();
 	}
 	
+     /**
+     * Will swap two pieces by start and final point
+     * @param startPoint Point pointer to the start point
+     * @param finalPoint Point pointer to the final point
+     */
 	public void swapPieces(Point startPoint, Point finalPoint) {
 		Piece piece = pieces[startPoint.x][startPoint.y];
 		pieces[startPoint.x][startPoint.y] = pieces[finalPoint.x][finalPoint.y];
@@ -96,24 +142,45 @@ public final class ChessModel {
 		updatePiecesLocations();
 	}
 	
+    /**
+     * Will return ChessModel status
+     * @return ChessModel status
+     */
 	public Status getStatus() {
 		return status;
 	}
 	
-	public void setStatus(Status status) {
+	/**
+     * Will set ChessModel status
+     * @param status new Status
+     */
+    public void setStatus(Status status) {
 		this.status = status;
 	}
 	
+    /**
+     * Will return pointer to the focused piece on the ChessModel
+     * @return pointer to the focused piece on the ChessModel
+     */
 	public Piece getWaitingMove() {
 		return waitingMove;
 	}
 	
-	public void setWaitingMove(Piece waitingMove) {
+    
+	/**
+     * Will set pointer to the focused piece on the ChessModel
+     * @param waitingMove pointer to the focused piece on the ChessModel (BEWARE is passed as reference and will be probably changed)
+     */
+    public void setWaitingMove(Piece waitingMove) {
 		this.waitingMove = waitingMove;
 		waitingMove.setWaitingMove(true);
 	}
 	
-	public void resetModel() {
+    
+	/**
+     * Will reset ChessModel completely (BEWARE any data about previous configuration are saved)
+     */
+    public void resetModel() {
 		status = Status.TURN_WHITE;
 		captured = new ArrayList<Piece>();
 		pieces = new Piece[][] {{ 
@@ -131,16 +198,27 @@ public final class ChessModel {
 		updatePiecesLocations();
 	}
 	
-	public void addCapturedPiece(Piece piece) {
+	/**
+     * Will add captured piece pointer into captured collection (no swap/delete/redesign operation is done)
+     * @param piece captured piece
+     */
+    public void addCapturedPiece(Piece piece) {
 		captured.add(piece);
 	}
 
-	public void removeCapturedPiece(Piece piece) {
+	/**
+     * Will remove captured piece pointer from captured collection (no swap/insert/redesign operation is done)
+     * @param piece captured piece
+     */
+    public void removeCapturedPiece(Piece piece) {
 		captured.remove(piece);
 		
 	}
 	
-	public void resetDomain() {
+	/**
+     * Will reset domain, capture domain, and setWaitingMove pointer on the current ChessModel configuration
+     */
+    public void resetDomain() {
 		for (Piece[] pieces : this.pieces)
 			for (Piece piece : pieces) {
 				piece.setDomain(false);
