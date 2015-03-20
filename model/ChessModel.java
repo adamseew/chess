@@ -74,7 +74,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will return all ChessModel pieces set
+     * All ChessModel pieces set
      *
      * @return all ChessModel pieces set
      */
@@ -83,7 +83,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will return ChessModel pieces as List in a specific color set
+     * ChessModel pieces as List in a specific color set
      *
      * @param color pecific color set to be returned
      * @return ChessModel pieces as List in a specific color set
@@ -101,7 +101,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will return ChessModel domain pieces as List in a specific color set
+     * ChessModel domain pieces as List in a specific color set
      *
      * @param color pecific color set to be returned
      * @return ChessModel domain pieces as List in a specific color set
@@ -119,7 +119,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will return king pointer of the specified color
+     * King pointer of the specified color
      *
      * @param color king color to be returned as pointer
      * @return king pointer of the specified color
@@ -134,7 +134,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will return the piece from specific point
+     * The piece from specific point
      *
      * @param point Point pointer to ChessModel coordinates
      * @return the piece from specific point
@@ -148,7 +148,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will set the piece from specific point
+     * Sets the piece from specific point
      *
      * @param point Point pointer to ChessModel coordinates
      * @param newPiece new Piece pointer (BEWARE is passed as reference and will
@@ -160,7 +160,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will swap two pieces by start and final point
+     * Swaps two pieces by start and final point
      *
      * @param startPoint Point pointer to the start point
      * @param finalPoint Point pointer to the final point
@@ -173,7 +173,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will return ChessModel status
+     * Returns ChessModel status
      *
      * @return ChessModel status
      */
@@ -182,7 +182,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will set ChessModel status
+     * Sets ChessModel status
      *
      * @param status new Status
      */
@@ -191,7 +191,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will return pointer to the focused piece on the ChessModel
+     * Pointer to the focused piece on the ChessModel
      *
      * @return pointer to the focused piece on the ChessModel
      */
@@ -200,7 +200,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will set pointer to the focused piece on the ChessModel
+     * Sets pointer to the focused piece on the ChessModel
      *
      * @param waitingMove pointer to the focused piece on the ChessModel (BEWARE
      * is passed as reference and will be probably changed)
@@ -211,7 +211,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will reset ChessModel completely (BEWARE any data about previous
+     * Resets ChessModel completely (BEWARE any data about previous
      * configuration are saved)
      */
     public void resetModel() {
@@ -233,7 +233,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will add captured piece pointer into captured collection (no
+     * Adds captured piece pointer into captured collection (no
      * swap/delete/redesign operation is done)
      *
      * @param piece captured piece
@@ -243,7 +243,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will remove captured piece pointer from captured collection (no
+     * Removes captured piece pointer from captured collection (no
      * swap/insert/redesign operation is done)
      *
      * @param piece captured piece
@@ -254,7 +254,7 @@ public final class ChessModel {
     }
 
     /**
-     * Will reset domain, capture domain, and setWaitingMove pointer on the
+     * Resets domain, capture domain, and setWaitingMove pointer on the
      * current ChessModel configuration
      */
     public void resetDomain() {

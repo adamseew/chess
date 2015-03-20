@@ -1,4 +1,3 @@
-// UNIVR-ARFA 
 package view;
 
 import java.awt.Color;
@@ -25,6 +24,11 @@ import javax.swing.KeyStroke;
 import model.*;
 import controller.*;
 
+/**
+ * ChessBoard (class)
+ * 
+ * @author Univr ARFA
+ */
 public final class ChessBoard extends JFrame {
 	private ChessModel chessModel;
 	private Controller chessController;	
@@ -48,6 +52,10 @@ public final class ChessBoard extends JFrame {
         new ChessBoard().setVisible(true);
 	}
 	
+    /**
+     * ChessBoard constructor
+     *
+     */
 	public ChessBoard() {
 		super("Chess");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -64,6 +72,11 @@ public final class ChessBoard extends JFrame {
 		setTitle("Chess (" + chessModel.getStatus().toString().toLowerCase().replace('_', ' ') + ")");
 	}
 	
+    /**
+     * Shows a dialog asking about what piece the player would like to promote
+     *
+     * @return the PieceType enum to promote
+     */	
 	public PieceType pawnPromotionDialog() {
 		Object[] possibilities = { "Bishop", "Knight", "Queen", "Rook" };
 		String promoted = (String)JOptionPane.showInputDialog(this, "Choose a piece to promote pawn with:", "Pawn promotion", JOptionPane.PLAIN_MESSAGE, null, possibilities, "Queen");
@@ -73,6 +86,10 @@ public final class ChessBoard extends JFrame {
 			return PieceType.QUEEN;
 	}
 	
+    /**
+     * Signals the state of check to the opposite player after the end of a move
+     *
+     */	
 	public void signalCheck() {
 		JOptionPane.showMessageDialog(null, chessModel.getStatus() == Status.TURN_BLACK ?
 			"Black king is under check!" : "White king is under check!", 
@@ -80,6 +97,10 @@ public final class ChessBoard extends JFrame {
 		);
 	}
 	
+	/**
+     * Signals the state of checkmate to the opposite player after the end of a move
+     *
+     */
 	public void signalCheckmate() {
 		JOptionPane.showMessageDialog(null, chessModel.getStatus() == Status.WON_WHITE ?
 			"Checkmate!\nWhite player won the match." : "Checkmate!\nBlack player won the match.", 
@@ -87,12 +108,21 @@ public final class ChessBoard extends JFrame {
 		);
 	}
 	
+    /**
+     * Redesings the Chessboard
+     *
+     * @param if the chessboard color scheme have to be reseted
+     */
 	public void designChessBoard(boolean resetColors) {
 		remove(panel);
 		initChessBoard(resetColors);
 		revalidate();
 	}
 	
+    /**
+     * Redesings the Chessboard without resetting color scheme
+     *
+     */	
 	public void designChessBoard() {
 		designChessBoard(false);
 	}

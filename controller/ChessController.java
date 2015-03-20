@@ -14,7 +14,7 @@ public final class ChessController implements Controller {
     private ChessModel chessModel;
 
     /**
-     * ChessController class' constructor
+     * ChessController constructor
      *
      * @param chessModel ChessModel istance pointer
      */
@@ -22,13 +22,6 @@ public final class ChessController implements Controller {
         this.chessModel = chessModel;
     }
 
-    /**
-     * OnClick event handler for ChessBoard Pieces
-     *
-     * @param caller caller pointer
-     * @param clicked clicked piece pointer represented as a point in x, y
-     * coordinates space
-     */
     @Override
     public void onClick(ChessBoard caller, Point clicked) {
         Piece piece = chessModel.getPiece(clicked);
@@ -42,14 +35,16 @@ public final class ChessController implements Controller {
             caller.designChessBoard(true);
         } else if (pieceType == PieceType.EMPTY && !piece.isDomain() || piece.isWaitingMove()
                 || status == Status.WAITING_MOVE_WHITE && pieceColor == PieceColor.BLACK && !piece.isDomain()
-                || status == Status.WAITING_MOVE_BLACK && pieceColor == PieceColor.WHITE && !piece.isDomain()) {
+                || status == Status.WAITING_MOVE_BLACK && pieceColor == PieceColor.WHITE && !piece.isDomain()) 
+        {
             // Need to reset domains to permit other moves
             chessModel.resetDomain();
             chessModel.setStatus(status.toString().contains("WHITE") ? Status.TURN_WHITE : Status.TURN_BLACK);
 
             caller.designChessBoard(true);
         } else if ((status == Status.WAITING_MOVE_WHITE || status == Status.WAITING_MOVE_BLACK)
-                && piece.isDomain() && !chessModel.getWaitingMove().equals(clicked)) {
+                && piece.isDomain() && !chessModel.getWaitingMove().equals(clicked)) 
+        {
             Piece moved = chessModel.getPiece(chessModel.getWaitingMove().getChessBoardLocation());
             moved.setAsMoved();
             if (!piece.isCaptureDomain()) {
@@ -64,7 +59,8 @@ public final class ChessController implements Controller {
             // Let's promote pawn
             if (moved.getPieceType() == PieceType.PAWN && clicked.x == 0
                     && moved.getPieceColor() == PieceColor.WHITE || moved.getPieceType() == PieceType.PAWN
-                    && clicked.x == 7 && moved.getPieceColor() == PieceColor.BLACK) {
+                    && clicked.x == 7 && moved.getPieceColor() == PieceColor.BLACK) 
+            {
                 switch (caller.pawnPromotionDialog()) {
                     case BISHOP:
                         chessModel.setPiece(clicked, new Bishop(moved.getPieceColor()));
@@ -88,16 +84,18 @@ public final class ChessController implements Controller {
             if (checkmate(status == Status.WAITING_MOVE_WHITE ? PieceColor.BLACK : PieceColor.WHITE, new ChessModel(chessModel))) {
                 chessModel.setStatus(status == Status.WAITING_MOVE_WHITE ? Status.WON_WHITE : Status.WON_BLACK);
                 caller.signalCheckmate();
-            } // Let's check if the opposite king is under check after move
-            else if (isKingUnderCheck(status == Status.WAITING_MOVE_WHITE ? PieceColor.BLACK : PieceColor.WHITE, new ChessModel(chessModel))) // Signal user check condition if it happens (it was checked by calling 
-            // isKingUnderCheck
-            {
-                caller.signalCheck();
+            } 
+            // Let's check if the opposite king is under check after move
+            else if (isKingUnderCheck(status == Status.WAITING_MOVE_WHITE ? PieceColor.BLACK : PieceColor.WHITE, new ChessModel(chessModel))) {
+                // Signal user check condition if it happens (it was checked by calling 
+                // isKingUnderCheck
+            	caller.signalCheck();
             }
 
             caller.designChessBoard(true);
         } else if (status == Status.TURN_WHITE && pieceColor == PieceColor.WHITE
-                || status == Status.TURN_BLACK && pieceColor == PieceColor.BLACK) {
+                || status == Status.TURN_BLACK && pieceColor == PieceColor.BLACK) 
+        {
             switch (pieceType) {
                 case PAWN:
                     pawn(clicked);
@@ -144,7 +142,8 @@ public final class ChessController implements Controller {
             // Design chess board after changing model
             caller.designChessBoard();
         } else if (status == Status.WAITING_MOVE_WHITE && pieceColor == PieceColor.WHITE
-                || status == Status.WAITING_MOVE_BLACK && pieceColor == PieceColor.BLACK) {
+                || status == Status.WAITING_MOVE_BLACK && pieceColor == PieceColor.BLACK) 
+        {
             // Need to reset domains to permit other moves
             chessModel.resetDomain();
             chessModel.setStatus(status == Status.WAITING_MOVE_WHITE ? Status.TURN_WHITE : Status.TURN_BLACK);
@@ -371,16 +370,17 @@ public final class ChessController implements Controller {
         for (int i = 0; i < steps; i++) {
             clicked.translate(verticalStep, horizontalStep);
             Piece capturable = model.getPiece(clicked);
-            if (clicked.x > 7 || clicked.x < 0 || clicked.y > 7 || clicked.y < 0) // Out of bounds, reached chess board limit, returning true specifies that 
-            // all the way from start point to end point was empty
-            {
+            if (clicked.x > 7 || clicked.x < 0 || clicked.y > 7 || clicked.y < 0) {
+            	 // Out of bounds, reached chess board limit, returning true specifies that 
+            	 // all the way from start point to end point was empty
                 return 0;
             }
             if (capturable.getPieceType() == PieceType.EMPTY && setDomain) {
                 // Free way, let's mark it
                 capturable.setDomain(true);
             } else if (capturable.getPieceType() != PieceType.EMPTY && setCaptureDomain && (capturable.getPieceColor() != PieceColor.WHITE && status == Status.TURN_WHITE
-                    || capturable.getPieceColor() != PieceColor.BLACK && status == Status.TURN_BLACK)) {
+                    || capturable.getPieceColor() != PieceColor.BLACK && status == Status.TURN_BLACK)) 
+            {
                 capturable.setDomain(true);
                 capturable.setCaptureDomain(true);
 
@@ -388,8 +388,8 @@ public final class ChessController implements Controller {
                 // the player possibility to capture it. By returning false the caller will 
                 // know that there is someone capturable
                 return -1;
-            } else // Someone of the same color in the way
-            {
+            } else {
+            	// Someone of the same color in the way
                 return 1;
             }
         }
