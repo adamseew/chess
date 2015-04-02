@@ -159,7 +159,10 @@ public final class ChessController implements Controller {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Inherited ChessController components used internally">
-    private boolean checkmate(PieceColor color, ChessModel model) {
+    /**
+     * Left protected for test purpose only
+     */
+    protected boolean checkmate(PieceColor color, ChessModel model) {
         for (Piece piece : model.getPieces(color)) {
             switch (piece.getPieceType()) {
                 case PAWN:
@@ -201,7 +204,10 @@ public final class ChessController implements Controller {
         return true;
     }
 
-    private boolean isKingUnderCheck(PieceColor kingColor, ChessModel model) {
+    /**
+     * Left protected for test purpose only
+     */
+    protected boolean isKingUnderCheck(PieceColor kingColor, ChessModel model) {
         Status status = model.getStatus();
         Piece king = model.getKing(kingColor);
         boolean isKingUnderCheck = false;
