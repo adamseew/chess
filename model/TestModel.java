@@ -77,24 +77,17 @@ public class TestModel {
      */
 	@org.junit.Test
 	public void TestColor() {
-
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < 2; i++)
+			for (int j = 0; j < 8; j++)
 				Assert.assertEquals(PieceColor.BLACK, chessModel.getPiece(new Point(i, j)).getPieceColor());
-			}
-		}
 		
-		for (int i = 2; i < 6; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 2; i < 6; i++)
+			for (int j = 0; j < 8; j++)
 				Assert.assertEquals(PieceColor.EMPTY, chessModel.getPiece(new Point(i, j)).getPieceColor());
-			}
-		}
 		
-		for (int i = 6; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 6; i < 8; i++)
+			for (int j = 0; j < 8; j++)
 				Assert.assertEquals(PieceColor.WHITE, chessModel.getPiece(new Point(i, j)).getPieceColor());
-			}
-		}
 	}
 
 }

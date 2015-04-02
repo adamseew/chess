@@ -21,14 +21,14 @@ public class TestExampleMatch {
 	@org.junit.Test
 	public void TestMatch() {
 		chessModel.swapPieces(new Point(6, 7), new Point(4, 7));
-		Assert.assertEquals(PieceType.PAWN, chessModel
-				.getPiece(new Point(4, 7)).getPieceType());
+		Assert.assertEquals(PieceType.PAWN, 
+                chessModel.getPiece(new Point(4, 7)).getPieceType());
 		Assert.assertEquals(PieceColor.WHITE,
 				chessModel.getPiece(new Point(4, 7)).getPieceColor());
 
 		chessModel.swapPieces(new Point(1, 1), new Point(3, 1));
-		Assert.assertEquals(PieceType.PAWN, chessModel
-				.getPiece(new Point(3, 1)).getPieceType());
+		Assert.assertEquals(PieceType.PAWN, 
+                chessModel.getPiece(new Point(3, 1)).getPieceType());
 		Assert.assertEquals(PieceColor.BLACK,
 				chessModel.getPiece(new Point(3, 1)).getPieceColor());
 
@@ -39,14 +39,14 @@ public class TestExampleMatch {
 				chessModel.getPiece(new Point(5, 2)).getPieceColor());
 
 		chessModel.swapPieces(new Point(1, 6), new Point(2, 6));
-		Assert.assertEquals(PieceType.PAWN, chessModel
-				.getPiece(new Point(2, 6)).getPieceType());
+		Assert.assertEquals(PieceType.PAWN, 
+                chessModel.getPiece(new Point(2, 6)).getPieceType());
 		Assert.assertEquals(PieceColor.BLACK,
 				chessModel.getPiece(new Point(2, 6)).getPieceColor());
 
 		chessModel.swapPieces(new Point(7, 7), new Point(5, 7));
-		Assert.assertEquals(PieceType.ROOK, chessModel
-				.getPiece(new Point(5, 7)).getPieceType());
+		Assert.assertEquals(PieceType.ROOK, 
+                chessModel.getPiece(new Point(5, 7)).getPieceType());
 		Assert.assertEquals(PieceColor.WHITE,
 				chessModel.getPiece(new Point(5, 7)).getPieceColor());
 
@@ -56,7 +56,6 @@ public class TestExampleMatch {
 		Assert.assertEquals(PieceColor.BLACK,
 				chessModel.getPiece(new Point(2, 7)).getPieceColor());
 
-		Assert.assertTrue(!chessController.checkmate(PieceColor.BLACK,
-				chessModel));
+		Assert.assertTrue(!chessController.checkmate(PieceColor.BLACK, chessModel));
 	}
 }
