@@ -62,7 +62,7 @@ public class TestModel {
 		Assert.assertEquals(PieceType.ROOK, chessModel.getPiece(new Point(7, 7)).getPieceType());
 	}
 
-	/**
+    /**
      * TestStatus tests the status of initialized chessboard
      * 
      */
@@ -71,7 +71,7 @@ public class TestModel {
 		Assert.assertEquals(chessModel.getStatus(), Status.TURN_WHITE);
 	}
 	
-	/**
+    /**
      * TestColor tests the color of pieces of initialized chessboard 
      * 
      */

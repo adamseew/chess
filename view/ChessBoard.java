@@ -97,7 +97,7 @@ public final class ChessBoard extends JFrame {
 		);
 	}
 	
-	/**
+    /**
      * Signals the state of checkmate to the opposite player after the end of a move
      *
      */
