@@ -26,14 +26,14 @@ import controller.*;
 
 /**
  * ChessBoard (class)
- * 
+ *
  * @author Univr ARFA
  */
 public final class ChessBoard extends JFrame {
+
 	private ChessModel chessModel;
-	private Controller chessController;	
+	private Controller chessController;
 	private JPanel panel;
-	
 	public final static int BOARD_BORDER = 3;
 	public final static int BOARD_MIN_SIZE_X = 360;
 	public final static int BOARD_MIN_SIZE_Y = 406;
@@ -46,21 +46,23 @@ public final class ChessBoard extends JFrame {
 	public final static String ODD_IS_DOMAIN_COLOR = "#76db96";
 	public final static String EVEN_IS_CAPTURE_DOMAIN_COLOR = "#ffa8a8";
 	public final static String ODD_IS_CAPTURE_DOMAIN_COLOR = "#ed9f9f";
-	
 
 	public static void main(String[] args) {
-        new ChessBoard().setVisible(true);
+		new ChessBoard().setVisible(true);
 	}
-	
-    /**
-     * ChessBoard constructor
-     *
-     */
+
+	/**
+	 * ChessBoard constructor
+	 *
+	 */
 	public ChessBoard() {
 		super("Chess");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) { onClose(); }
+			@Override
+			public void windowClosing(WindowEvent e) {
+				onClose();
+			}
 		});
 		setMinimumSize(new Dimension(BOARD_MIN_SIZE_X, BOARD_MIN_SIZE_Y));
 		setSize(new Dimension(BOARD_SIZE_X, BOARD_SIZE_Y));
@@ -71,99 +73,106 @@ public final class ChessBoard extends JFrame {
 		initMenu();
 		setTitle("Chess (" + chessModel.getStatus().toString().toLowerCase().replace('_', ' ') + ")");
 	}
-	
-    /**
-     * Shows a dialog asking about what piece the player would like to promote
-     *
-     * @return the PieceType enum to promote
-     */	
+
+	/**
+	 * Shows a dialog asking about what piece the player would like to promote
+	 *
+	 * @return the PieceType enum to promote
+	 */
 	public PieceType pawnPromotionDialog() {
-		Object[] possibilities = { "Bishop", "Knight", "Queen", "Rook" };
-		String promoted = (String)JOptionPane.showInputDialog(this, "Choose a piece to promote pawn with:", "Pawn promotion", JOptionPane.PLAIN_MESSAGE, null, possibilities, "Queen");
-		if (promoted != null)
+		Object[] possibilities = {"Bishop", "Knight", "Queen", "Rook"};
+		String promoted = (String) JOptionPane.showInputDialog(this, "Choose a piece to promote pawn with:", "Pawn promotion", JOptionPane.PLAIN_MESSAGE, null, possibilities, "Queen");
+		if (promoted != null) {
 			return PieceType.valueOf(promoted.toUpperCase());
-		else
+		} else {
 			return PieceType.QUEEN;
+		}
 	}
-	
-    /**
-     * Signals the state of check to the opposite player after the end of a move
-     *
-     */	
+
+	/**
+	 * Signals the state of check to the opposite player after the end of a move
+	 *
+	 */
 	public void signalCheck() {
-		JOptionPane.showMessageDialog(null, chessModel.getStatus() == Status.TURN_BLACK ?
-			"Black king is under check!" : "White king is under check!", 
-			"King under check", JOptionPane.WARNING_MESSAGE
-		);
+		JOptionPane.showMessageDialog(null, chessModel.getStatus() == Status.TURN_BLACK
+				? "Black king is under check!" : "White king is under check!",
+				"King under check", JOptionPane.WARNING_MESSAGE);
 	}
-	
-    /**
-     * Signals the state of checkmate to the opposite player after the end of a move
-     *
-     */
+
+	/**
+	 * Signals the state of checkmate to the opposite player after the end of a
+	 * move
+	 *
+	 */
 	public void signalCheckmate() {
-		JOptionPane.showMessageDialog(null, chessModel.getStatus() == Status.WON_WHITE ?
-			"Checkmate!\nWhite player won the match." : "Checkmate!\nBlack player won the match.", 
-			"Checkmate", JOptionPane.INFORMATION_MESSAGE
-		);
+		JOptionPane.showMessageDialog(null, chessModel.getStatus() == Status.WON_WHITE
+				? "Checkmate!\nWhite player won the match." : "Checkmate!\nBlack player won the match.",
+				"Checkmate", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
-    /**
-     * Redesings the Chessboard
-     *
-     * @param if the chessboard color scheme have to be reseted
-     */
+
+	/**
+	 * Redesings the Chessboard
+	 *
+	 * @param if the chessboard color scheme have to be reseted
+	 */
 	public void designChessBoard(boolean resetColors) {
 		remove(panel);
 		initChessBoard(resetColors);
 		revalidate();
 	}
-	
-    /**
-     * Redesings the Chessboard without resetting color scheme
-     *
-     */	
+
+	/**
+	 * Redesings the Chessboard without resetting color scheme
+	 *
+	 */
 	public void designChessBoard() {
 		designChessBoard(false);
 	}
-	
+
 	private void initChessBoard(boolean resetColors) {
-		panel = new JPanel(new GridLayout(8, 8)) { public final Dimension getPreferredSize() {
-			if (getParent().getWidth() > getParent().getHeight())
-				return new Dimension(getParent().getHeight(), getParent().getHeight());
-			else
-				return new Dimension(getParent().getWidth(), getParent().getWidth());
-		}};
+		panel = new JPanel(new GridLayout(8, 8)) {
+			@Override
+			public final Dimension getPreferredSize() {
+				if (getParent().getWidth() > getParent().getHeight()) {
+					return new Dimension(getParent().getHeight(), getParent().getHeight());
+				} else {
+					return new Dimension(getParent().getWidth(), getParent().getWidth());
+				}
+			}
+		};
 		panel.setBorder(BorderFactory.createEmptyBorder(BOARD_BORDER, BOARD_BORDER, BOARD_BORDER, BOARD_BORDER));
 		int i = 0;
 		for (Piece[] pieces : chessModel.getPieces()) {
 			int j = 0;
 			for (Piece piece : pieces) {
-				if ((i + j) % 2 == 0)
-					if (piece.isCaptureDomain() && !resetColors)
+				if ((i + j) % 2 == 0) {
+					if (piece.isCaptureDomain() && !resetColors) {
 						piece.setBackground(Color.decode(EVEN_IS_CAPTURE_DOMAIN_COLOR));
-					else if (piece.isWaitingMove() && !resetColors)
+					} else if (piece.isWaitingMove() && !resetColors) {
 						piece.setBackground(Color.decode(WAITING_MOVE_COLOR));
-					else if (piece.isDomain() && !resetColors)
+					} else if (piece.isDomain() && !resetColors) {
 						piece.setBackground(Color.decode(EVEN_IS_DOMAIN_COLOR));
-					else
+					} else {
 						piece.setBackground(Color.decode(EVEN_COLOR));
-				else
-					if (piece.isCaptureDomain() && !resetColors)
-						piece.setBackground(Color.decode(ODD_IS_CAPTURE_DOMAIN_COLOR));
-					else if (piece.isWaitingMove() && !resetColors)
-						piece.setBackground(Color.decode(WAITING_MOVE_COLOR));
-					else if (piece.isDomain() && !resetColors)
-						piece.setBackground(Color.decode(ODD_IS_DOMAIN_COLOR));
-					else
-						piece.setBackground(Color.decode(ODD_COLOR));
+					}
+				} else if (piece.isCaptureDomain() && !resetColors) {
+					piece.setBackground(Color.decode(ODD_IS_CAPTURE_DOMAIN_COLOR));
+				} else if (piece.isWaitingMove() && !resetColors) {
+					piece.setBackground(Color.decode(WAITING_MOVE_COLOR));
+				} else if (piece.isDomain() && !resetColors) {
+					piece.setBackground(Color.decode(ODD_IS_DOMAIN_COLOR));
+				} else {
+					piece.setBackground(Color.decode(ODD_COLOR));
+				}
 				final Point chessBoardLocation = new Point(i, j);
 				final ChessBoard caller = this;
-				if (piece.getActionListeners().length > 0)
+				if (piece.getActionListeners().length > 0) {
 					piece.removeActionListener(piece.getActionListeners()[0]);
+				}
 				piece.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
-				        chessController.onClick(caller, chessBoardLocation);
+						chessController.onClick(caller, chessBoardLocation);
 					}
 				});
 				piece.setFocusable(false);
@@ -175,33 +184,32 @@ public final class ChessBoard extends JFrame {
 		setLayout(new GridBagLayout());
 		add(panel, new GridBagConstraints());
 	}
-	
+
 	private void initMenu() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu;
 		JMenuItem menuItem;
-		
+
 		menu = new JMenu("File");
 		menu.setMnemonic(KeyEvent.VK_F);
 		menuBar.add(menu);
-		
+
 		menuItem = new JMenuItem("New match", KeyEvent.VK_M);
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.SHIFT_MASK));
 		menuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-            	if (JOptionPane.showConfirmDialog(
-            			null, 
-            			"Would you like to start a new match?", 
-            			"Start a new match", 
-            			JOptionPane.YES_NO_OPTION, 
-            			JOptionPane.QUESTION_MESSAGE
-            		) == JOptionPane.YES_OPTION)
-            	{
-                	chessModel.resetModel();
-                	designChessBoard(true);
-            	}
-            }
-        });
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				if (JOptionPane.showConfirmDialog(
+						null,
+						"Would you like to start a new match?",
+						"Start a new match",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+					chessModel.resetModel();
+					designChessBoard(true);
+				}
+			}
+		});
 		menu.add(menuItem);
 
 		menu.addSeparator();
@@ -209,18 +217,21 @@ public final class ChessBoard extends JFrame {
 		menuItem = new JMenuItem("Exit", KeyEvent.VK_X);
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.SHIFT_MASK));
 		menuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { onClose();	}
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				onClose();
+			}
 		});
 		menu.add(menuItem);
-		
+
 		setJMenuBar(menuBar);
 	}
-	
+
 	private void onClose() {
-		if (JOptionPane.showConfirmDialog(null, 
+		if (JOptionPane.showConfirmDialog(null,
 				"Are you sure you want to exit chess?", "Exit chess",
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE
-			) == JOptionPane.YES_OPTION)
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 			System.exit(0);
+		}
 	}
 }

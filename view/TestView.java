@@ -8,27 +8,28 @@ import junit.framework.Assert;
 
 /**
  * TestController (JUnit Test Case)
- * 
+ *
  * @author Univr ARFA
  */
-
 public class TestView {
 
 	ChessModel chessCm = new ChessModel();
-	
+
 	/**
 	 * TestImage tests if the image corresponds to the piece
-	 * 
+	 *
 	 */
 	@org.junit.Test
-	public void TestImage() {
+	public void testImage() {
+		// ARFA 8/4/2015
+		// Standardly a method name should start with lower case char
 		Assert.assertEquals("" + Rook.class.getResource("/rook-black.png"), (chessCm.getPiece(new Point(0, 0)).getIcon()).toString());
 		Assert.assertEquals("" + Knight.class.getResource("/knight-black.png"), (chessCm.getPiece(new Point(0, 1)).getIcon()).toString());
 		Assert.assertEquals("" + Bishop.class.getResource("/bishop-black.png"), (chessCm.getPiece(new Point(0, 2)).getIcon()).toString());
 		Assert.assertEquals("" + Queen.class.getResource("/queen-black.png"), (chessCm.getPiece(new Point(0, 3)).getIcon()).toString());
 		Assert.assertEquals("" + King.class.getResource("/king-black.png"), (chessCm.getPiece(new Point(0, 4)).getIcon()).toString());
-		Assert.assertEquals("" + Bishop.class.getResource("/bishop-black.png"),(chessCm.getPiece(new Point(0, 5)).getIcon()).toString());
-		Assert.assertEquals("" + Knight.class.getResource("/knight-black.png"),(chessCm.getPiece(new Point(0, 6)).getIcon()).toString());
+		Assert.assertEquals("" + Bishop.class.getResource("/bishop-black.png"), (chessCm.getPiece(new Point(0, 5)).getIcon()).toString());
+		Assert.assertEquals("" + Knight.class.getResource("/knight-black.png"), (chessCm.getPiece(new Point(0, 6)).getIcon()).toString());
 		Assert.assertEquals("" + Rook.class.getResource("/rook-black.png"), (chessCm.getPiece(new Point(0, 7)).getIcon()).toString());
 		Assert.assertEquals("" + Pawn.class.getResource("/pawn-black.png"), (chessCm.getPiece(new Point(1, 0)).getIcon()).toString());
 		Assert.assertEquals("" + Pawn.class.getResource("/pawn-black.png"), (chessCm.getPiece(new Point(1, 1)).getIcon()).toString());
@@ -56,5 +57,4 @@ public class TestView {
 		Assert.assertEquals("" + Pawn.class.getResource("/pawn-white.png"), (chessCm.getPiece(new Point(6, 6)).getIcon()).toString());
 		Assert.assertEquals("" + Pawn.class.getResource("/pawn-white.png"), (chessCm.getPiece(new Point(6, 7)).getIcon()).toString());
 	}
-
 }

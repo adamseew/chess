@@ -7,29 +7,30 @@ import model.*;
 
 /**
  * Piece (class)
- * 
+ *
  * @author Univr ARFA
  */
 public abstract class Piece extends JButton implements Model {
+
 	private final PieceColor color;
 	private Point chessBoardLocation;
 	private boolean moved;
 	private boolean isDomain;
 	private boolean isCaptureDomain;
 	private boolean isWaitingMove;
-	
+
 	/**
 	 * Piece constructor
-	 * 
+	 *
 	 * @param image icon on chessbord
 	 */
 	protected Piece(Icon image) {
 		this(image, PieceColor.EMPTY);
 	}
-	
+
 	/**
 	 * Piece constructor
-	 * 
+	 *
 	 * @param image icon on chessboard
 	 * @param color piece color on chessboard
 	 */
@@ -38,11 +39,11 @@ public abstract class Piece extends JButton implements Model {
 		setBorderPainted(false);
 		this.color = color;
 	}
-	
+
 	/**
 	 * Piece instance copy constructor
-	 * 
-	 * @param piece old reference to do the copy with 
+	 *
+	 * @param piece old reference to do the copy with
 	 */
 	protected Piece(Piece piece) {
 		this.color = piece.color;
@@ -50,75 +51,89 @@ public abstract class Piece extends JButton implements Model {
 		this.isDomain = piece.isDomain;
 		this.isCaptureDomain = piece.isCaptureDomain;
 	}
-	
-    @Override	
+
+	@Override
 	public final Point getChessBoardLocation() {
 		return chessBoardLocation;
 	}
-	
-    @Override
+
+	@Override
 	public final void setChessBoardLocation(Point chessBoardLocation) {
 		this.chessBoardLocation = chessBoardLocation;
 	}
-	
-    @Override
+
+	@Override
 	public final PieceColor getPieceColor() {
 		return this.color;
 	}
-	
-    @Override
+
+	@Override
 	public final boolean wasMoved() {
 		return moved;
 	}
-	
-    @Override
+
+	@Override
 	public final void setAsMoved() {
 		moved = true;
 	}
-	
-    @Override
+
+	@Override
 	public final boolean isDomain() {
 		return isDomain;
 	}
-	
-    @Override
+
+	@Override
 	public final void setDomain(boolean isDomain) {
 		this.isDomain = isDomain;
-			
+
 	}
-	
-    @Override
+
+	@Override
 	public final boolean isCaptureDomain() {
 		return isCaptureDomain;
 	}
-	
-    @Override
+
+	@Override
 	public final void setCaptureDomain(boolean isCaptureDomain) {
 		this.isCaptureDomain = isCaptureDomain;
 	}
-	
+
 	/**
-	 * Returns if the current instance of piece is focused by the players 
-	 * 
-	 * @return if the current instance of piece is focused by the players 
+	 * Returns if the current instance of piece is focused by the players
+	 *
+	 * @return if the current instance of piece is focused by the players
 	 */
 	public final boolean isWaitingMove() {
 		return isWaitingMove;
 	}
-	
+
 	/**
-	 * Sets if the current instance of piece is focused by the players 
-	 * 
-	 * @param isWaitingMove specify if the current instance of piece is focused by the players 
+	 * Sets if the current instance of piece is focused by the players
+	 *
+	 * @param isWaitingMove specify if the current instance of piece is focused
+	 * by the players
 	 */
 	public final void setWaitingMove(boolean isWaitingMove) {
 		this.isWaitingMove = isWaitingMove;
 	}
-	
-    @Override
+
+	@Override
 	public boolean equals(Object other) {
-		if (other instanceof Piece && ((Piece)other).getChessBoardLocation().equals(this))
+		// ARFA 8/4/2015
+		// Error calling equals on different instances. So ((Piece) other).getChessBoardLocation().equals(this)
+		// was changed calling getChessBoardLocation() method
+		if (other instanceof Piece && ((Piece) other).getChessBoardLocation().equals(this.getChessBoardLocation())) {
 			return true;
+		}
 		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		// ARFA 8/4/2015
+		// IDE's auto generated method hashCode was included
+		int hash = 3;
+		hash = 19 * hash + (this.chessBoardLocation != null ? this.chessBoardLocation.hashCode() : 0);
+		return hash;
 	}
 }

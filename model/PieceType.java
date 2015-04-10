@@ -7,5 +7,5 @@ package model;
  */
 public enum PieceType {
 
-    BISHOP, EMPTY, KING, KNIGHT, PAWN, QUEEN, ROOK
+	BISHOP, EMPTY, KING, KNIGHT, PAWN, QUEEN, ROOK
 }

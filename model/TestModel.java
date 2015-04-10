@@ -2,10 +2,11 @@ package model;
 
 import java.awt.Point;
 
-import controller.*;
+// ARFA 8/4/2015
+// controller namespace is never used
+// import controller.*;
 
 import junit.framework.Assert;
-
 
 /**
  * TestModel (JUnit Test Case)
@@ -13,15 +14,20 @@ import junit.framework.Assert;
  * @author Univr ARFA
  */
 public class TestModel {
-	ChessModel chessModel = new ChessModel();
-	ChessController chessController = new ChessController(chessModel);
 
-    /**
-     * TestPosition tests the position of pieces on initalized chessboard
-     * 
-     */
+	ChessModel chessModel = new ChessModel();
+	// ARFA 8/4/2015
+	// chessController instance is never used
+	// ChessController chessController = new ChessController(chessModel);
+
+	/**
+	 * TestPosition tests the position of pieces on initalized chessboard
+	 *
+	 */
 	@org.junit.Test
-	public void TestPosition() {
+	public void testPosition() {
+		// ARFA 8/4/2015
+		// Standardly a method name should start with lower case char
 		Assert.assertEquals(PieceType.ROOK, chessModel.getPiece(new Point(0, 0)).getPieceType());
 		Assert.assertEquals(PieceType.KNIGHT, chessModel.getPiece(new Point(0, 1)).getPieceType());
 		Assert.assertEquals(PieceType.BISHOP, chessModel.getPiece(new Point(0, 2)).getPieceType());
@@ -38,12 +44,12 @@ public class TestModel {
 		Assert.assertEquals(PieceType.PAWN, chessModel.getPiece(new Point(1, 5)).getPieceType());
 		Assert.assertEquals(PieceType.PAWN, chessModel.getPiece(new Point(1, 6)).getPieceType());
 		Assert.assertEquals(PieceType.PAWN, chessModel.getPiece(new Point(1, 7)).getPieceType());
-		
+
 		Assert.assertEquals(PieceType.EMPTY, chessModel.getPiece(new Point(2, 0)).getPieceType());
 		Assert.assertEquals(PieceType.EMPTY, chessModel.getPiece(new Point(3, 3)).getPieceType());
 		Assert.assertEquals(PieceType.EMPTY, chessModel.getPiece(new Point(4, 5)).getPieceType());
 		Assert.assertEquals(PieceType.EMPTY, chessModel.getPiece(new Point(5, 7)).getPieceType());
-		
+
 		Assert.assertEquals(PieceType.PAWN, chessModel.getPiece(new Point(6, 0)).getPieceType());
 		Assert.assertEquals(PieceType.PAWN, chessModel.getPiece(new Point(6, 1)).getPieceType());
 		Assert.assertEquals(PieceType.PAWN, chessModel.getPiece(new Point(6, 2)).getPieceType());
@@ -62,32 +68,41 @@ public class TestModel {
 		Assert.assertEquals(PieceType.ROOK, chessModel.getPiece(new Point(7, 7)).getPieceType());
 	}
 
-    /**
-     * TestStatus tests the status of initialized chessboard
-     * 
-     */
+	/**
+	 * TestStatus tests the status of initialized chessboard
+	 *
+	 */
 	@org.junit.Test
-	public void TestStatus() {
+	public void testStatus() {
+		// ARFA 8/4/2015
+		// Standardly a method name should start with lower case char
 		Assert.assertEquals(chessModel.getStatus(), Status.TURN_WHITE);
 	}
-	
-    /**
-     * TestColor tests the color of pieces of initialized chessboard 
-     * 
-     */
-	@org.junit.Test
-	public void TestColor() {
-		for (int i = 0; i < 2; i++)
-			for (int j = 0; j < 8; j++)
-				Assert.assertEquals(PieceColor.BLACK, chessModel.getPiece(new Point(i, j)).getPieceColor());
-		
-		for (int i = 2; i < 6; i++)
-			for (int j = 0; j < 8; j++)
-				Assert.assertEquals(PieceColor.EMPTY, chessModel.getPiece(new Point(i, j)).getPieceColor());
-		
-		for (int i = 6; i < 8; i++)
-			for (int j = 0; j < 8; j++)
-				Assert.assertEquals(PieceColor.WHITE, chessModel.getPiece(new Point(i, j)).getPieceColor());
-	}
 
+	/**
+	 * TestColor tests the color of pieces of initialized chessboard
+	 *
+	 */
+	@org.junit.Test
+	public void testColor() {
+		// ARFA 8/4/2015
+		// Standardly a method name should start with lower case char
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 8; j++) {
+				Assert.assertEquals(PieceColor.BLACK, chessModel.getPiece(new Point(i, j)).getPieceColor());
+			}
+		}
+
+		for (int i = 2; i < 6; i++) {
+			for (int j = 0; j < 8; j++) {
+				Assert.assertEquals(PieceColor.EMPTY, chessModel.getPiece(new Point(i, j)).getPieceColor());
+			}
+		}
+
+		for (int i = 6; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				Assert.assertEquals(PieceColor.WHITE, chessModel.getPiece(new Point(i, j)).getPieceColor());
+			}
+		}
+	}
 }
