@@ -197,8 +197,8 @@ public final class ChessModel {
 	 */
 	public Piece getWaitingMove() {
 		// ARFA 4/8/2015
-		// Beawere somewhere this method is used in coordination with equals on Point
-		// instance. getChessBoardLocation() befere has to be called
+		// Beware somewhere this method is used in coordination with equals on Point
+		// instance. getChessBoardLocation() before has to be called
 		return waitingMove;
 	}
 

@@ -41,9 +41,10 @@ public final class ChessController implements Controller {
 			chessModel.setStatus(status.toString().contains("WHITE") ? Status.TURN_WHITE : Status.TURN_BLACK);
 
 			caller.designChessBoard(true);
-		} // ARFA 4/8/2015
-		// Beawere: !chessModel.getWaitingMove().equals(clicked) cannot be called
-		// due to instance probleb. getWaitingMove() return Piece instance so
+		} 
+		// ARFA 4/8/2015
+		// Beware: !chessModel.getWaitingMove().equals(clicked) cannot be called
+		// due to instance problem. getWaitingMove() return Piece instance so
 		// getChessBoardLocation() have to be called
 		else if ((status == Status.WAITING_MOVE_WHITE || status == Status.WAITING_MOVE_BLACK)
 				&& piece.isDomain() && !chessModel.getWaitingMove().getChessBoardLocation().equals(clicked)) {
@@ -150,8 +151,8 @@ public final class ChessController implements Controller {
 			caller.designChessBoard(true);
 
 			// ARFA 4/8/2015
-			// Beawere: !chessModel.getWaitingMove().equals(clicked) cannot be called
-			// due to instance probleb. getWaitingMove() return Piece instance so
+			// Beware: !chessModel.getWaitingMove().equals(clicked) cannot be called
+			// due to instance problem. getWaitingMove() return Piece instance so
 			// getChessBoardLocation() have to be called
 			if (!chessModel.getWaitingMove().getChessBoardLocation().equals(clicked)) {
 				onClick(caller, clicked);
